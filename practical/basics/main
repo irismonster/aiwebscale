@@ -1,12 +1,11 @@
-import urllib.request
-import json
+from practical.basics import rest_interaction
 
 class Main:
 
     def __init__(self):
         print("Hello world")
-        res = urllib.request.urlopen("http://krabspin.uci.ru.nl/getcontext.json/?i=4&runid=10&teamid=Error_Teamname_not_found&teampw=845ea0b18db9a82bc43c811d740d3177").read()
-        obj = json.loads(res.decode())
-        print(obj)
+        ri = rest_interaction
+        r = ri.RestInteraction()
+        r.proposepage()
 
 m = Main()

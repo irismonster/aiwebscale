@@ -1,9 +1,11 @@
-
+from practical.basics import rest_interaction
 
 class Main:
 
     def __init__(self):
         print("Hello world")
-
+        ri = rest_interaction
+        r = ri.RestInteraction()
+        r.proposepage()
 
 m = Main()

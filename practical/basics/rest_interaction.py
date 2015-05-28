@@ -8,8 +8,22 @@ class RestInteraction:
     def __init__(self):
         return
 
-    def getcontext(self):
+    def loopOverPeople(self, runID, N): # RunID is quite obvious, N is number of people, so the i's
+        for i in range(N):
+            self.getcontext(runID, i)
         return
+
+    def getcontext(self, runID, i):
+        res = urllib.request.urlopen("http://krabspin.uci.ru.nl/getcontext.json/?i="+str(i)+"&runid="+str(runID)+"&teamid=Error_Teamname_not_found&teampw=845ea0b18db9a82bc43c811d740d3177").read()
+        obj = json.loads(res.decode())  # Example: {'context': {'ID': 236, 'Age': 42.0, 'Agent': 'mobile', 'Referer': 'Bing', 'Language': 'EN'}}
+        context = obj.get('context')    # Example: {'ID': 236, 'Age': 42.0, 'Agent': 'mobile', 'Referer': 'Bing', 'Language': 'EN'}
+        age = context.get('Age')        # Example: 42.0
+        agent = context.get('Agent')    # Example: 'mobile'
+        id = context.get('ID')          # Example: 236
+        referer = context.get('Referer')    # Example: 'Bing'
+        language = context.get('Language')  # Example: 'EN'
+        return obj, context, age, agent, id, referer, language
+
 
     def proposepage(self, ):
         teamid = 'Error_Teamname_not_found'
@@ -34,3 +48,4 @@ class RestInteraction:
             print('PANIEK!')
 
         return success, error
+

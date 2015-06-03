@@ -1,4 +1,4 @@
-from practical.basics import rest_interaction
+from basics import rest_interaction
 # Voor tessa: from practical.basics import rest_interaction
 
 class Main:
@@ -15,6 +15,5 @@ class Main:
         ri = rest_interaction
         r = ri.RestInteraction(self.teamID, self.teamPW)
         r.loopOverPeople(runID, numberOfIs)
-        r.proposepage()
 
 m = Main()

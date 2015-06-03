@@ -14,7 +14,9 @@ class RestInteraction:
 
     def loopOverPeople(self, runID, N): # RunID is quite obvious, N is number of people, so the i's
         for i in range(N):
-            self.getcontext(runID, i)
+            obj, context, age, agent, id, referer, language = self.getcontext(runID, i)
+            header, adtype, color, productid, price = self.whichpage(age, agent, id, referer, language, runID, i)
+            succes, error = self.proposepage(runID, i, header, adtype, color, productid, price)
         return
 
     def getcontext(self, runID, i):
@@ -26,19 +28,19 @@ class RestInteraction:
         id = context.get('ID')          # Example: 236
         referer = context.get('Referer')    # Example: 'Bing'
         language = context.get('Language')  # Example: 'EN'
+        print(language)
         return obj, context, age, agent, id, referer, language
 
-
-    def proposepage(self, ):
-        runid = '10'
-        i = '1'
+    def whichpage(self, age, agent, id, referer, language, runID, i):
         header = '5' #5, 15 or 35
         adtype = 'skyscraper' #skyscraper, square or banner
         color = 'green' #green, blue, red, black, white
         productid = '10' #10-25
         price = 1 #0-50
+        return header, adtype, color, productid, price
 
-        url = 'http://krabspin.uci.ru.nl/proposePage.json/?' + 'i=' + i + '&runid=' + runid + '&teamid=' + self.teamid \
+    def proposepage(self, runID, i, header, adtype, color, productid, price):
+        url = 'http://krabspin.uci.ru.nl/proposePage.json/?' + 'i=' + str(i) + '&runid=' + str(runID) + '&teamid=' + self.teamid \
               + '&header=' + header + '&adtype=' + adtype + '&color=' + color + '&productid=' + productid \
               + '&price=' + str(price) + '&teampw=' + self.teampw
         res = urllib.request.urlopen(url).read()

@@ -14,19 +14,17 @@ class RestInteraction:
 
     def loopOverPeople(self, runID, N): # RunID is quite obvious, N is number of people, so the i's
         mean = 0
-        count = 0
         squares = 0
         for i in range(N):
             obj, context, age, agent, id, referer, language = self.getcontext(runID, i)
             header, adtype, color, productid, price = self.whichpage(age, agent, id, referer, language, runID, i)
             succes, error, revenue = self.proposepage(runID, i, header, adtype, color, productid, price)
-            count = count + 1
-            mean = mean + (revenue - mean) / count
+            mean = mean + (revenue - mean) / (i+1)
             squares = squares + (revenue - mean) * (revenue - mean)
-        variance = squares / (count)
+        variance = squares / (i + 1)
         print(mean)
         print(variance)
-        return
+        return mean, variance
 
     def getcontext(self, runID, i):
         res = urllib.request.urlopen("http://krabspin.uci.ru.nl/getcontext.json/?i="+str(i)+"&runid="+str(runID)+"&teamid=" + self.teamid + "&teampw=" + self.teampw).read()
@@ -37,7 +35,6 @@ class RestInteraction:
         id = context.get('ID')          # Example: 236
         referer = context.get('Referer')    # Example: 'Bing'
         language = context.get('Language')  # Example: 'EN'
-        print(language)
         return obj, context, age, agent, id, referer, language
 
     def whichpage(self, age, agent, id, referer, language, runID, i):
@@ -62,8 +59,8 @@ class RestInteraction:
             return
 
         revenue = self.compute_revenue_single_user(price, success)
-        print('You asked ' + str(price) + ' euro.')
-        print('Your revenue was: ' + str(revenue))
+        #print('You asked ' + str(price) + ' euro.')
+        #print('Your revenue was: ' + str(revenue))
 
         return success, error, revenue
 

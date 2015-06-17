@@ -9,7 +9,7 @@ class Main:
 
     def __init__(self):
         print("Hello world")
-        runs = 10
+        runs = 1
         numberOfIs = 10
 
         ri = rest_interaction

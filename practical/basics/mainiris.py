@@ -9,11 +9,19 @@ class Main:
 
     def __init__(self):
         print("Hello world")
-        runID = 10
+        runs = 10
         numberOfIs = 10
 
         ri = rest_interaction
         r = ri.RestInteraction(self.teamID, self.teamPW)
-        r.loopOverPeople(runID, numberOfIs)
+        meanMean = 0
+        meanVariance = 0
+        for i in range(runs):
+            print("run: " + str(i))
+            mean, variance = r.loopOverPeople(i, numberOfIs)
+            meanMean = meanMean + (mean - meanMean) / (i+1)
+            meanVariance = meanVariance + (variance - meanVariance) / (i+1)
+        print("Mean mean : " + str(meanMean))
+        print("Mean var : " + str(meanVariance))
 
 m = Main()

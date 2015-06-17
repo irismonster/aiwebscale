@@ -36,7 +36,7 @@ class RestInteraction:
         adtype = 'skyscraper' #skyscraper, square or banner
         color = 'green' #green, blue, red, black, white
         productid = '10' #10-25
-        price = 1 #0-50
+        price = 20 #0-50
         return header, adtype, color, productid, price
 
     def proposepage(self, runID, i, header, adtype, color, productid, price):

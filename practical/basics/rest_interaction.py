@@ -13,10 +13,19 @@ class RestInteraction:
         self.teampw = teampw
 
     def loopOverPeople(self, runID, N): # RunID is quite obvious, N is number of people, so the i's
+        mean = 0
+        count = 0
+        squares = 0
         for i in range(N):
             obj, context, age, agent, id, referer, language = self.getcontext(runID, i)
             header, adtype, color, productid, price = self.whichpage(age, agent, id, referer, language, runID, i)
-            succes, error = self.proposepage(runID, i, header, adtype, color, productid, price)
+            succes, error, revenue = self.proposepage(runID, i, header, adtype, color, productid, price)
+            count = count + 1
+            mean = mean + (revenue - mean) / count
+            squares = squares + (revenue - mean) * (revenue - mean)
+        variance = squares / (count)
+        print(mean)
+        print(variance)
         return
 
     def getcontext(self, runID, i):
@@ -52,10 +61,11 @@ class RestInteraction:
             print('!!! An error was given in the propose page function !!!')
             return
 
+        revenue = self.compute_revenue_single_user(price, success)
         print('You asked ' + str(price) + ' euro.')
-        print('Your revenue was: ' + str(self.compute_revenue_single_user(price, success)))
+        print('Your revenue was: ' + str(revenue))
 
-        return success, error
+        return success, error, revenue
 
     def compute_revenue_single_user(self, price, success):
         return price*success

@@ -1,4 +1,4 @@
-from basics import rest_interaction
+from practical.basics import rest_interaction
 # Voor tessa: from practical.basics import rest_interaction
 
 class Main:

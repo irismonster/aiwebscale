@@ -1,5 +1,7 @@
 from practical.basics import rest_interaction
+#from practical.basics import test
 # Voor tessa: from practical.basics import rest_interaction
+from practical.basics import bootstrapThompson as bt
 
 class Main:
 
@@ -8,12 +10,20 @@ class Main:
 
 
     def __init__(self):
+        n_runIDs = 10 #10000
+        n_interactions = 100 # 10000
+        n_people = 10 #5000
+        b = bt.BootstrapThompson(self.teamID, self.teamPW, n_runIDs, n_interactions, n_people)
+
+
+        exit()
         print("Hello world")
-        runs = 1
-        numberOfIs = 10
+        runs = 1000
+        numberOfIs = 1000
 
         ri = rest_interaction
         r = ri.RestInteraction(self.teamID, self.teamPW)
+
         meanMean = 0
         meanVariance = 0
         for i in range(runs):

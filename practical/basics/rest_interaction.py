@@ -52,7 +52,7 @@ class RestInteraction:
 
             # updated expected regret
             regret[i] = N*price - revenue
-            print(revenue)
+            #print(revenue)
 
             mean = mean + (revenue - mean) / (i+1)
             squares = squares + (revenue - mean) * (revenue - mean)
